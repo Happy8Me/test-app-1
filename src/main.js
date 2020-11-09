@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'whatwg-fetch'
+import 'whatwg-fetch'  //Fetch polyfill for IE
 
 
 Vue.config.productionTip = false
