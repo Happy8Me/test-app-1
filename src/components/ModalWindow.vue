@@ -13,10 +13,10 @@
           <div class="close" @click="closeModal" ></div>
           <form class="customers-data" action="">
                 <input id="input-name" ref="inputName" @focus="setSuccess($refs.inputName)" @blur="nameValidation()" v-model="userName" placeholder="Name" type="text" required>
-                <label id="label-name" ref="labelName" for="input-name"> </label>
+                <label id="label-name" for="input-name"> </label>
 
                 <input id="input-number" ref="inputNumber" @focus="setSuccess($refs.inputNumber)" @blur="numberValidation()" v-model.number="userNumber" placeholder="Number" type="text" required>
-                <label id="label-number" ref="labelNumber" for="input-number"> </label>
+                <label id="label-number" for="input-number"> </label>
 
                 <button class="btn-submit" ref="btnSubmit" @click.prevent="dataValidation( nameValidation(), numberValidation() )"> ORDER</button>
           </form>
