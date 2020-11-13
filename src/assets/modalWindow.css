@@ -41,6 +41,10 @@
     flex-direction: column;
     align-items: center;
 }
+
+.error { border-color: red;}
+.error-message {opacity: 1;}
+
 input {
     height: 56px;
     width: 288px;
@@ -78,6 +82,7 @@ label {
     opacity: 0;
     transition: .3s;
     font-size: 12px;
+    height: 15px;
 }
 
 .btn-submit {
@@ -125,9 +130,7 @@ label {
     background-color: #ffffff;
 }
 .show {display: flex;}
-.error {
-    border-color: red;
-}
+
 
 @media screen and (max-width: 785px) {
     .modal-window{

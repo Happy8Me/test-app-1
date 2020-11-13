@@ -12,13 +12,13 @@
             </div>
           <div class="close" @click="closeModal" ></div>
           <form class="customers-data" action="">
-                <input id="input-name" @focus="fadeErrorMsg" @blur="nameValidation()" v-model="userName" placeholder="Name" type="text" required>
-                <label id="label-name" for="input-name"> {{errorNameMessage}} </label>
+                <input id="input-name" ref="inputName" @focus="setSuccess($refs.inputName)" @blur="nameValidation()" v-model="userName" placeholder="Name" type="text" required>
+                <label id="label-name" ref="labelName" for="input-name"> </label>
 
-                <input id="input-number" @focus="fadeErrorMsg" @blur="numberValidation()" v-model.number="userNumber" placeholder="Number" type="text" required>
-                <label id="label-number" for="input-number"> {{errorNumberMessage}} </label>
+                <input id="input-number" ref="inputNumber" @focus="setSuccess($refs.inputNumber)" @blur="numberValidation()" v-model.number="userNumber" placeholder="Number" type="text" required>
+                <label id="label-number" ref="labelNumber" for="input-number"> </label>
 
-                <button class="btn-submit" @click.prevent="dataValidation( nameValidation(), numberValidation() )"> ORDER</button>
+                <button class="btn-submit" ref="btnSubmit" @click.prevent="dataValidation( nameValidation(), numberValidation() )"> ORDER</button>
           </form>
     </div>
 </div>
@@ -49,65 +49,54 @@ export default {
           this.$emit('close');
           this.userName = "";
           this.userNumber = "";
-        },      
+        },   
+        setError(inputField, errorMessage){
+            inputField.classList.add("error");
+            inputField.nextSibling.classList.add("error-message");
+            inputField.nextSibling.innerText = errorMessage;
+        },
+        setSuccess(inputField){
+            if(inputField.classList.contains("error")){
+                inputField.classList.remove("error");
+            }
+            if(inputField.nextSibling.classList.contains("error-message")){
+                inputField.nextSibling.classList.remove("error-message");
+            }
+        },
         nameValidation(){
-            let name = document.querySelector('#input-name');
-            let labelName = document.querySelector('#label-name');
+            let name = this.$refs.inputName;
             let letters = /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/;
             if ( name.value.match(letters) ){
-                if(name.classList.contains("error")){
-                    name.classList.remove("error")
-                }
-                labelName.style.opacity = 0;
+                this.setSuccess(name);
                 return name.value; //here name is returned to be used in dataValidation()
             } else if (name.value.length == 0) {
-                name.classList.add("error");
-                this.errorNameMessage = "This field is required";
-                labelName.style.opacity = 1;
+                this.setError(name, "This field is required");
             } else if (!name.value.match(letters)){
-                name.classList.add("error");
-                this.errorNameMessage = "Only letters allowed";
-                labelName.style.opacity = 1;
+                this.setError(name, "Only letters allowed");
             }
         },
         numberValidation(){
-            let number = document.querySelector('#input-number');
-            let labelNumber = document.querySelector('#label-number');
+            let number = this.$refs.inputNumber;
             let numbers = /^[0-9]+$/;
 
             if ( number.value.match(numbers) && number.value.length == 12 ){
-                 if(number.classList.contains("error")){
-                    number.classList.remove("error")
-                }
-                labelNumber.style.opacity = 0;
+                this.setSuccess(number);
                 return number.value; //here phone number is returned to be used in dataValidation()
             } else if (number.value.length == 0) {
-                number.classList.add("error");
-                this.errorNumberMessage = "This field is required";
-                labelNumber.style.opacity = 1;
+                this.setError(number, "This field is required");
             } else if (!number.value.match(numbers) && number.value.length != 0){
-                number.classList.add("error");
-                this.errorNumberMessage = "Only numbers allowed";
-                labelNumber.style.opacity = 1;
+                this.setError(number, "Only numbers allowed");
             } else if (number.value.length != 12) {
-                number.classList.add("error");
-                this.errorNumberMessage = "Should contain 12 characters";
-                labelNumber.style.opacity = 1;
+                this.setError(number, "Should contain 12 characters");
             }
         },
-        dataValidation(a, b){
-            if (a && b) {
-                console.log("user's name: ",  a);
-                console.log("user's number: ",  b);
-                document.querySelector(".btn-submit").innerText = "Thank you for your order";
+        dataValidation(validName, validNumber){
+            if (validName && validNumber) {
+                console.log("user's name: ", validName);
+                console.log("user's number: ", validNumber);
+                this.$refs.btnSubmit.innerText = "Thank you for your order";
             }
         },
-        fadeErrorMsg(el){
-            let inp = document.querySelector("#"+el.target.id);
-            if (document.hasFocus()){
-                inp.labels[0].style.opacity = 0;
-            }
-        }
     },
 }
 

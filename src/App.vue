@@ -44,19 +44,61 @@ export default {
 
   data() {
     return {
-      itemsList: [],
+      // itemsList: [],
       showed: false,
       show: false,
       indx: 0,
+      itemsList: [
+    {
+        "name": "orange Juice",
+        "category": "Drinks",
+        "price": 14.99
+    },
+    {
+        "name": "Apples",
+        "category": "fruits",
+        "price": 4.99
+    },
+    {
+        "name": "Tomatos",
+        "category": "vegetables",
+        "price": 6.39
+    },
+    {
+        "name": "Coffee",
+        "category": "Drinks",
+        "price": 3.15
+    },
+    {
+        "name": "Sweet Paper",
+        "category": "Vegetables",
+        "price": 12.15
+    },
+    {
+        "name": "Grapes",
+        "category": "FRUITS",
+        "price": 20.49
+    },
+    {
+        "name": "Pears",
+        "category": "Fruits",
+        "price": 1.35
+    },
+    {
+        "name": "Team",
+        "category": "Drinks",
+        "price": 0.4
+    }
+],
     }
   },
-  created() {
-    fetch ("https://run.mocky.io/v3/b7d36eea-0b3f-414a-ba44-711b5f5e528e")
-      .then(resp => resp.json())
-      .then(resp => {
-          this.itemsList = resp;
-      });
-  }
+  // created() {
+  //   fetch ("https://run.mocky.io/v3/b7d36eea-0b3f-414a-ba44-711b5f5e528e")
+  //     .then(resp => resp.json())
+  //     .then(resp => {
+  //         this.itemsList = resp;
+  //     });
+  // }
 }
 </script>
 
@@ -73,7 +115,7 @@ body {
   height: 100%;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -81,7 +123,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Roboto;
 }
 .app-content{
   display: flex;
